@@ -4,124 +4,60 @@
     <meta charset="UTF-8">
     <title>Tạo QR Phiếu Bảo Hành</title>
 
-    <!-- QR Code library -->
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fa;
-        }
-
+        body { font-family: Arial; background:#f4f6f8; }
         .container {
             max-width: 900px;
             margin: 40px auto;
             background: #fff;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-
-        h1 {
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            color: #555;
-            margin-bottom: 30px;
-        }
-
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
         }
-
-        .box {
-            border: 1px solid #e0e0e0;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
         input {
             width: 100%;
             padding: 10px;
             margin-top: 6px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
         }
-
         button {
-            margin-top: 20px;
-            padding: 12px 20px;
+            margin-top: 15px;
+            padding: 10px 16px;
             background: #2563eb;
             color: #fff;
             border: none;
-            border-radius: 6px;
             cursor: pointer;
-            font-size: 15px;
         }
-
-        button:hover {
-            background: #1e40af;
-        }
-
-        #qrBox {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .hint {
-            font-size: 13px;
-            color: #666;
-            margin-top: 6px;
-        }
+        #qrBox { margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>HELLO TEST</h1>
-    <div class="subtitle">
-        Admin tạo phiếu bảo hành → hệ thống sinh QR cho khách quét
-    </div>
+    <h2>Tạo QR Phiếu Bảo Hành</h2>
 
     <div class="grid">
-
-        <!-- LEFT -->
-        <div class="box">
-            <h3>1️⃣ Cấu hình</h3>
-
-            <label>Contract Address (Sepolia)</label>
+        <div>
+            <label>Contract Address</label>
             <input id="contractAddress" placeholder="0x..." />
 
             <label>Trang xem phiếu (receipt.html)</label>
             <input id="receiptUrl"
                    placeholder="https://username.github.io/repo/receipt.html" />
-
-            <div class="hint">
-                QR sẽ trỏ đến trang này kèm theo contract + mã bảo hành
-            </div>
         </div>
 
-        <!-- RIGHT -->
-        <div class="box">
-            <h3>2️⃣ Nhập mã bảo hành</h3>
-
-            <label>Số seri / Mã phiếu</label>
-            <input id="warrantyId" placeholder="VD: SP001" />
+        <div>
+            <label>Số seri / mã bảo hành</label>
+            <input id="warrantyId" placeholder="SP001" />
 
             <button onclick="generateQR()">Tạo QR</button>
-
             <div id="qrBox"></div>
         </div>
-
     </div>
 </div>
 
@@ -132,7 +68,7 @@ function generateQR() {
     const receiptUrl = document.getElementById("receiptUrl").value.trim();
 
     if (!contract || !warrantyId || !receiptUrl) {
-        alert("Vui lòng nhập đầy đủ thông tin");
+        alert("Thiếu thông tin");
         return;
     }
 
