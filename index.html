@@ -1,0 +1,20 @@
+function generateQR() {
+  const contract = document.getElementById("contractAddress").value;
+  const warrantyId = document.getElementById("receiptId").value;
+  const receiptUrl = document.getElementById("receiptUrl").value;
+
+  if (!contract || !warrantyId || !receiptUrl) {
+    alert("Thiếu thông tin");
+    return;
+  }
+
+  const fullUrl =
+    `${receiptUrl}?contract=${contract}&id=${warrantyId}`;
+
+  document.getElementById("qrBox").innerHTML = "";
+  new QRCode(document.getElementById("qrBox"), {
+    text: fullUrl,
+    width: 220,
+    height: 220,
+  });
+}
